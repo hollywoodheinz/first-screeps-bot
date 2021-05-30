@@ -62,15 +62,15 @@ export const loop = ErrorMapper.wrapLoop(() => {
       var wallRepairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'wall_repairer');
       var currentCreeps = _.filter(Game.creeps, (creep) => true);
       var energy = Game.spawns.Spawn1.room.energyCapacityAvailable;
-  
+
       console.log('Harvesters: ' + harvesters.length + '|Builders: ' + builders.length +'|Upgraders: ' + upgraders.length + '|Repairers: ' + repairers.length + '|Wall Repairers: ' + wallRepairers.length);
-  
+
       // Shows how much energy is in the room
       for(var name in Game.rooms) {
           console.log('Room "'+name+'" has '+Game.rooms[name].energyAvailable+' energy');
           Game.rooms[name].defendRoom
       }
-  
+
       // Cleans up dead creeps from memory
       for(var name in Memory.creeps) {
           if(!Game.creeps[name]) {
@@ -79,37 +79,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
           }
       }
 
-      //Handle towers
-    // for(var name in Game.rooms){
-    //     let towers: StructureTower[] = [];
-    //     let structures = Game.rooms.name.find(FIND_MY_STRUCTURES, {
-    //         filter: (s) => s.structureType == STRUCTURE_TOWER
-    //     });
-
-    //     for(var s of structures){
-    //         if(s instanceof StructureTower){
-    //             towers.push(s);
-    //         }
-    //     }
-
-    //     for(var tower of towers){
-    //         let target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
-    //         if(target){
-    //             if(tower.attack(target) == OK){
-    //                 Game.structures[tower.id].room.visual.text(
-    //                     '🔫' + 'attacking enemy creep',
-    //                     Game.structures[tower.id].pos.x + 1,
-    //                     Game.structures[tower.id].pos.y,
-    //                     {align: 'left', opacity: 0.8});
-    //             }
-    //         }   
-    //     }
-    // }
-        
-
-  
       //TODO Cant show name of creep spawn right after command due to tick delay, will need to come up with a different method to handle this.
-  
+
       //Creep Generation Logic
       if(harvesters.length < minHarvesters) {
           if(Game.spawns.Spawn1.createWorkerCreep(energy, 'harvester') == OK){
@@ -140,8 +111,8 @@ export const loop = ErrorMapper.wrapLoop(() => {
               // console.log('Spawning new builder: ' + Game.spawns.Spawn1.spawning.name);
           }
       }
-  
-  
+
+
       if(Game.spawns['Spawn1'].spawning) {
           var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
           Game.spawns['Spawn1'].room.visual.text(
@@ -150,9 +121,9 @@ export const loop = ErrorMapper.wrapLoop(() => {
               Game.spawns['Spawn1'].pos.y,
               {align: 'left', opacity: 0.8});
       }
-  
-  
-  
+
+
+
       for(var name in Game.creeps) {
           var creep = Game.creeps[name];
           switch (creep.memory.role){
@@ -173,7 +144,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
                   break;
           }
       }
-  
+
 
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
