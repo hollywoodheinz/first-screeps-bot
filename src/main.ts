@@ -29,6 +29,10 @@ declare global {
     building?: boolean;
   }
 
+  interface Room {
+      defendRoom(roomName: string): void;
+  }
+
   interface StructureSpawn{
     createWorkerCreep(energy: number, roleName: string): ScreepsReturnCode;
   }
@@ -64,6 +68,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
       // Shows how much energy is in the room
       for(var name in Game.rooms) {
           console.log('Room "'+name+'" has '+Game.rooms[name].energyAvailable+' energy');
+          Game.rooms[name].defendRoom
       }
   
       // Cleans up dead creeps from memory
@@ -73,6 +78,35 @@ export const loop = ErrorMapper.wrapLoop(() => {
               console.log('Clearing non-existing creep memory:', name);
           }
       }
+
+      //Handle towers
+    // for(var name in Game.rooms){
+    //     let towers: StructureTower[] = [];
+    //     let structures = Game.rooms.name.find(FIND_MY_STRUCTURES, {
+    //         filter: (s) => s.structureType == STRUCTURE_TOWER
+    //     });
+
+    //     for(var s of structures){
+    //         if(s instanceof StructureTower){
+    //             towers.push(s);
+    //         }
+    //     }
+
+    //     for(var tower of towers){
+    //         let target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
+    //         if(target){
+    //             if(tower.attack(target) == OK){
+    //                 Game.structures[tower.id].room.visual.text(
+    //                     '🔫' + 'attacking enemy creep',
+    //                     Game.structures[tower.id].pos.x + 1,
+    //                     Game.structures[tower.id].pos.y,
+    //                     {align: 'left', opacity: 0.8});
+    //             }
+    //         }   
+    //     }
+    // }
+        
+
   
       //TODO Cant show name of creep spawn right after command due to tick delay, will need to come up with a different method to handle this.
   
